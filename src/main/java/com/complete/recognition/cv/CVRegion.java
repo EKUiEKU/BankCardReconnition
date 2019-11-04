@@ -157,17 +157,6 @@ public class CVRegion extends ImgSeparator{
         }
 
 
-        if (rect != null) {
-            /**
-             检测类型为2-16或连串的长条形区域
-             参考到第4节
-             */
-            System.out.println("检测类型为2-16或连串的长条形区域");
-        }
-        if (rect == null)
-            return null;
-//        // 详细请移步第4节
-//        cutEdgeOfX(rect);
         /**
          成功定位卡号矩形区域
          */
@@ -269,11 +258,6 @@ public class CVRegion extends ImgSeparator{
             Rect rect;
             List<Rect> rectSet = new ArrayList<Rect>();
             for (int i = 0; i < contours.size(); i++) {
-//                MatOfPoint2f srcPoint2f =new MatOfPoint2f(contours.get(i).toArray());
-//                MatOfPoint2f dstPoint2f = new MatOfPoint2f();
-//                double epsilon = 0.05 * Imgproc.arcLength(srcPoint2f,true);
-//                Imgproc.approxPolyDP(srcPoint2f,dstPoint2f,epsilon,true);
-//
 
                 if (mode) {
                     //TODO 7.1 模式一,cv的函数boundingRect
@@ -282,24 +266,11 @@ public class CVRegion extends ImgSeparator{
                     //TODO 7.2 模式二,自己定义的函数boundingRect
                     rect = boundingRect(contours.get(i));
                 }
-//                System.out.println("rect " + rect);
-//                String fileName = Strings.getFilePath(Strings.FILE_NAME);
-//                Mat mat = CVGrayTransfer.grayTransferBeforeScale(fileName);
-//                mat = new Mat(mat,rect);
-//
-//
-//                List<MatOfPoint> matOfPoints = new ArrayList<>();
-//                MatOfPoint matOfPoint = new MatOfPoint(dstPoint2f.toArray());
-//                matOfPoints.add(matOfPoint);
-//                Imgproc.polylines(mat,matOfPoints,true,new Scalar(255,0,0));
-//
-//                HighGui.imshow("",mat);
-//                HighGui.waitKey(0);
 
                 rectSet.add(rect);
             }
 
-            String fileName = Strings.getFilePath(Strings.FILE_NAME_5);
+            String fileName = Strings.getFilePath();
             Mat mat = CVGrayTransfer.grayTransferBeforeScale(fileName);
 
             for (int i = 0; i < rectSet.size(); i++) {
@@ -308,92 +279,6 @@ public class CVRegion extends ImgSeparator{
             HighGui.imshow("",mat);
             HighGui.waitKey(0);
 
-
-            //开始合并银行卡号
-
-            //以下代码还未解析 16点22分 2019.10.24 吴少聪
-//            rect = rectSet.get(0);
-//            int dist[][] = new int[2][rectSet.size()];
-//            for (int i = 0; i < rectSet.size(); i++) {
-//                dist[0][i] = i;
-//                dist[1][i] = rectSet.get(i).y - rect.y;
-//            }
-//
-//            System.out.println("rect = rectSet.get(0);->" + rect.toString());
-//
-//            sortMap(dist);
-//
-//
-//            /**
-//             * TODO: 20点38分 2019.11.2 解读
-//             */
-//            //偏差
-//            final int verBias = 15;
-//            for (int i = 0; i < dist[1].length - 2; i++) {
-//                if (dist[1][i + 2] - dist[1][i] < verBias) {
-//                    int k;
-//                    /**
-//                     * Upper left and lower right corners
-//                     */
-//                    int sx = src.width();
-//                    int sy = src.height();
-//                    int mx = -1;
-//                    int my = -1;
-//                    // max width between these id-digit area
-//                    int mw = 0;
-//                    int sw = src.width();
-//                    for (k = 0; k < 3; k ++) {
-//                        rect = rectSet.get(dist[0][k + i]);
-//                        if (!isDigitRegion(rect, src.width(),src.height()))
-//                            break;
-//
-//                        sx = Math.min(rect.x, sx);
-//                        sy = Math.min(rect.y, sy);
-//                        mx = Math.max(rect.x + rect.width, mx);
-//                        my = Math.max(rect.y + rect.height, my);
-//                        mw = Math.max(rect.width, mw);
-//                        sw = Math.min(rect.width, sw);
-//                    }
-//
-//                    // less than 3 area, find next
-//                    if (k < 3) {
-//                        continue;
-//                    }
-//
-//                    if (i < dist[1].length - 3) {
-//                        if (dist[1][i + 3] - dist[1][i] < verBias &&
-//                                isDigitRegion(rect =
-//                                                rectSet.get(dist[0][i + 3]),
-//                                        src.width(), src.height())) {
-//                            sx = Math.min(sx, rect.x);
-//                            sy = Math.min(sy, rect.y);
-//                            mx = Math.max(rect.x + rect.width, mx);
-//                            my = Math.max(rect.y + rect.height, my);
-//                            // finding out all 4 digit area
-//                            return new Rect(sx, sy, mx - sx, my - sy);
-//                        }
-//                    }
-//
-//                    // completing 4th digit area
-//                    int mg;
-//                    //to make the gap largest,avoiding losing digit message
-//                    int gap = (mx - sx - sw * 3) >> 1;
-//                    Rect rt;
-//                    if (sx < (mg = src.width() - mx - gap)) {
-//                        rt = mg > mw ?
-//                                new Rect(sx, sy, mx + mw + gap - sx , my - sy):
-//                                new Rect(10, sy, src.width() - 20, my - sy);
-//                    }
-//                    else {
-//                        mg = sx - gap;
-//                        rt = mg > mw ?
-//                                new Rect(sx - mw -gap, sy, mx - sx +mw, my -sy):
-//                                new Rect(10, sy, src.width() - 20, my - sy);
-//                    }
-//
-//                    return rt;
-//                }
-//            }
 
             /**
              * @Modified By WuShaoCong
@@ -533,7 +418,7 @@ public class CVRegion extends ImgSeparator{
 
             //3.筛选rectFilerNumbers的矩形,得出最终的银行数字串矩形
 
-
+            //TODO 在此补充代码
             return null;
         }
 

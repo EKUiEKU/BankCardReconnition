@@ -3,14 +3,11 @@ package com.complete.recognition;
 import com.complete.recognition.cv.CVDilate;
 import com.complete.recognition.cv.CVGrayTransfer;
 import com.complete.recognition.cv.CVRegion;
-import com.complete.recognition.utils.Resources;
-import com.oracle.jrockit.jfr.Producer;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
+
 
 /**
  * @Author: ShaocongWU
@@ -81,19 +78,23 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = Strings.getFilePath(Strings.FILE_NAME_5);
+        Strings.setFileDefault(Strings.FILE_NAME);
+        String fileName = Strings.getFilePath();
 
         Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName);
         Producer producer = new Producer(gray);
         // 定位卡号矩形区域
         Rect mainRect = producer.findMainRect();
-        // 设置矩形区域
-        producer.setRectOfDigitRow(mainRect);
-        // 窗口输出
-        // HighGui.imshow("id numbers", new Mat(gray, mainRect));
-//        System.out.println(mainRect);
 
-//        CVRegion cvRegion = new CVRegion(gray);
-//        cvRegion.digitSeparate();
+
+
+//        // 设置矩形区域
+//        //producer.setRectOfDigitRow(mainRect);
+//        // 窗口输出
+//        // HighGui.imshow("id numbers", new Mat(gray, mainRect));
+////        System.out.println(mainRect);
+//
+////        CVRegion cvRegion = new CVRegion(gray);
+////        cvRegion.digitSeparate();
     }
 }

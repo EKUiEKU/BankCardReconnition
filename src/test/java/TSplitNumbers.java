@@ -30,8 +30,8 @@ public class TSplitNumbers{
 
     @Test
     public void test(){
-        String filePath = Strings.getFilePath(Strings.FILE_NAME_2);
-        System.out.println(filePath);
+//        String filePath = Strings.getFilePath(Strings.FILE_NAME_2);
+//        System.out.println(filePath);
 
     }
 

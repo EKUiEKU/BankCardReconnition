@@ -18,9 +18,21 @@ public class Strings {
     //印刷体
     public static final String FILE_NAME_4 = "14.png";
 
-    public static String getFilePath(String fileName){
+
+    private static String FILE_DEFAULT = FILE_NAME;
+
+
+    public static String getFileDefault() {
+        return FILE_DEFAULT;
+    }
+
+    public static void setFileDefault(String fileDefault) {
+        FILE_DEFAULT = fileDefault;
+    }
+
+    public static String getFilePath(){
         String filePath= Resources.getResource(
-                fileName
+                getFileDefault()
         ).getPath().substring(1);
 
         return filePath;
